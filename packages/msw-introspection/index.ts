@@ -12,10 +12,17 @@ import { compose } from "ramda";
 const createIntrospectionSchema = (introspection: unknown) =>
   buildClientSchema(introspection as IntrospectionQuery);
 
-// TODO: Extend signature to include mocks
+/**
+ * @todo: Extend signature to include mocks
+ */
 const createMockedSchema = (introspectionSchema: GraphQLSchema) =>
   addMocksToSchema({ schema: introspectionSchema });
 
+/**
+ *
+ * @param mockedSchema
+ * @returns
+ */
 const gqlMockedSchemaHandler =
   (mockedSchema: GraphQLSchema) =>
   async (
@@ -39,6 +46,11 @@ const gqlMockedSchemaHandler =
       : res(context.errors(result.errors));
   };
 
+/**
+ * @name createIntrospectionHandler
+ * @description Construct a msw graphql handler with an introspection for default mocked responses
+ * @todo: Expose custom mocks in this signature
+ */
 export const createIntrospectionHandler = compose(
   gqlMockedSchemaHandler,
   createMockedSchema,
