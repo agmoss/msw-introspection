@@ -1,0 +1,41 @@
+{
+    "name": "msw-introspection",
+    "version": "0.0.0",
+    "license": "MIT",
+    "main": "./index.ts",
+    "types": "./index.ts",
+    "scripts": {
+        "download:schema": "npx apollo client:download-schema graphql/schema.gql --endpoint https://api.spacex.land/graphql",
+        "gt": "graphql-codegen",
+        "lint": "TIMING=1 eslint \"**/*.ts*\" \"**/*.tsx*\"",
+        "test": "jest"
+    },
+    "dependencies": {
+        "@apollo/client": "^3.7.1",
+        "@graphql-tools/mock": "^8.7.11",
+        "graphql": "^15.8.0",
+        "msw": "^0.48.2",
+        "ramda": "^0.28.0"
+    },
+    "devDependencies": {
+        "@graphql-codegen/cli": "^2.13.11",
+        "@graphql-codegen/introspection": "^2.2.1",
+        "@graphql-codegen/typescript": "^2.8.1",
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^13.4.0",
+        "@types/jest": "^29.2.2",
+        "@types/ramda": "^0.28.20",
+        "cross-fetch": "^3.1.5",
+        "eslint": "^7.32.0",
+        "eslint-config-custom": "*",
+        "graphql-codegen": "^0.4.0",
+        "jest": "^29.3.1",
+        "jest-environment-jsdom": "^29.3.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "ts-jest": "^29.0.3",
+        "tsconfig": "*",
+        "typescript": "^4.5.2",
+        "use-query-rd": "^1.0.0"
+    }
+}

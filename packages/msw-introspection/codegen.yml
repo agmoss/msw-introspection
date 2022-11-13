@@ -1,0 +1,19 @@
+overwrite: true
+schema: https://api.spacex.land/graphql
+generates:
+  graphql/types.d.ts:
+    plugins:
+      - typescript
+
+  graphql/introspection.json:
+    plugins:
+      - introspection
+    config:
+      minify: true
+
+config:
+  immutableTypes: true
+  maybeValue: T | undefined | null
+  scalars:
+    ObjectID: string
+    URL: Record<string,any>
