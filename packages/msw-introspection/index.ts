@@ -9,20 +9,18 @@ import { addMocksToSchema } from "@graphql-tools/mock";
 import { gql } from "@apollo/client";
 import { compose } from "ramda";
 
+type MockT = Parameters<typeof addMocksToSchema>[0]["mocks"];
+
+/**
+ * @see https://graphql.org/learn/introspection/
+ */
 const createIntrospectionSchema = (introspection: unknown) =>
   buildClientSchema(introspection as IntrospectionQuery);
 
-/**
- * @todo: Extend signature to include mocks
- */
-const createMockedSchema = (introspectionSchema: GraphQLSchema) =>
-  addMocksToSchema({ schema: introspectionSchema });
+const createMockedSchema =
+  (mocks?: MockT) => (introspectionSchema: GraphQLSchema) =>
+    addMocksToSchema({ schema: introspectionSchema, mocks: mocks });
 
-/**
- *
- * @param mockedSchema
- * @returns
- */
 const gqlMockedSchemaHandler =
   (mockedSchema: GraphQLSchema) =>
   async (
@@ -49,10 +47,10 @@ const gqlMockedSchemaHandler =
 /**
  * @name createIntrospectionHandler
  * @description Construct a msw graphql handler with an introspection for default mocked responses
- * @todo: Expose custom mocks in this signature
  */
-export const createIntrospectionHandler = compose(
-  gqlMockedSchemaHandler,
-  createMockedSchema,
-  createIntrospectionSchema
-);
+export const createIntrospectionHandler = (mocks?: MockT) =>
+  compose(
+    gqlMockedSchemaHandler,
+    createMockedSchema(mocks),
+    createIntrospectionSchema
+  );

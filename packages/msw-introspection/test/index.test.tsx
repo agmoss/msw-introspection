@@ -30,5 +30,5 @@ it("string should be default as per mock data", async () => {
       <Rockets />
     </ApolloProvider>
   );
-  expect((await screen.findByTestId("launchSiteName0")).textContent).toBe("Launch Site: Hello World")
+  expect((await screen.findByTestId("launchSiteName0")).textContent).toBe("Launch Site: msw-introspection")
 });
