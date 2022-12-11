@@ -47,3 +47,27 @@ afterAll(() => {
   server.close();
 });
 ```
+
+## Testing
+
+The testing for this library illustrates how to use MSW to mock a GQL API and get default responses from an introspected schema. The schema used for testing is downloaded from the [SpaceX GraphQL API](https://api.spacex.land/graphql). This schema is pre-downloaded and available for use in testing. If you need to re-download the schema, run the following command:
+
+```bash
+npx apollo client:download-schema test/graphql/schema.gql --endpoint https://api.spacex.land/graphql
+```
+
+The `/test` directory sets up an ApolloClient instance, a React component that calls `useQuery`, and the utilities that set up the msw server.
+
+```bash
+├── test
+│   ├── graphql
+│   │   ├── introspection.json # Output of graphql-codegen
+│   │   ├── schema.gql # Schema downloaded from SpaceX API
+│   │   ├── types.d.ts # Output of graphql-codegen
+│   ├── mocks # MSX code
+│   ├── ApolloClient.ts # An instance of apollo client
+│   ├── codegen.yml # Generate ts types and introspection from graphql schema
+│   ├── index.test.tsx # Test suite
+│   ├── rockets.tsx # Simple react component that makes a useQuery call.
+│   ├── setupTests.ts # Enables mocking for unit tests via `beforeAll`/`afterAll` hooks.
+```

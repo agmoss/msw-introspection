@@ -2,9 +2,15 @@
     "name": "msw-introspection",
     "version": "0.0.0",
     "license": "MIT",
-    "main": "./index.ts",
-    "types": "./index.ts",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "/dist/*",
+        "/test/*"
+    ],
     "scripts": {
+        "build":"tsc",
         "download:schema": "npx apollo client:download-schema graphql/schema.gql --endpoint https://api.spacex.land/graphql",
         "gt": "graphql-codegen",
         "lint": "TIMING=1 eslint \"**/*.ts*\" \"**/*.tsx*\"",
