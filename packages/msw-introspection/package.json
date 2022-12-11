@@ -42,6 +42,6 @@
         "ts-jest": "^29.0.3",
         "tsconfig": "*",
         "typescript": "^4.5.2",
-        "use-query-rd": "^1.0.0"
+        "use-query-rd": "^2.0.0"
     }
 }
