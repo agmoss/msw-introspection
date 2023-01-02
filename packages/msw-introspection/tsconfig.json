@@ -1,11 +1,10 @@
 {
-    "extends": "tsconfig/react-library.json",
-    "compilerOptions": {
-        "resolveJsonModule": true,
-        "rootDir": ".",
-        "outDir": "dist",
-    },
-    "include": ["lib", "test"],
-    "exclude": ["dist", "node_modules"]
-  }
-  
+  "extends": "tsconfig/react-library.json",
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "rootDir": ".",
+    "outDir": "dist"
+  },
+  "include": ["lib", "test"],
+  "exclude": ["dist", "node_modules"]
+}
