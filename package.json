@@ -1,28 +1,62 @@
 {
   "name": "msw-introspection",
   "version": "0.0.0",
-  "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
+  "license": "MIT",
+  "main": "./dist/lib/index.js",
+  "module": "./dist/lib/index.js",
+  "types": "./dist/lib/index.d.ts",
+  "files": [
+    "/dist/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "lint": "turbo run lint",
-    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
+    "prebuild": "rimraf dist",
+    "build": "tsc -p tsconfig.build.json",
+    "check": "tsc --noEmit",
+    "dev": "npm run build --watch",
+    "download:schema": "npx apollo client:download-schema graphql/schema.gql --endpoint https://api.spacex.land/graphql",
+    "gt": "graphql-codegen --config test/codegen.yml",
+    "lint": "TIMING=1 eslint \"**/*.ts*\" \"**/*.tsx*\"",
+    "pkg-ok": "pkg-ok",
+    "prerelease": "npm run prepublish",
+    "prepublish": "npm run test && npm run build && npm run pkg-ok",
+    "test": "jest"
   },
   "dependencies": {
-    "@changesets/cli": "^2.26.0"
+    "@graphql-tools/mock": "^8.7.11",
+    "msw": "^0.47.4",
+    "ramda": "^0.28.0"
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
-    "prettier": "latest",
-    "turbo": "latest"
+    "@apollo/client": "^3.7.1",
+    "@graphql-codegen/cli": "^2.13.11",
+    "@graphql-codegen/introspection": "^2.2.1",
+    "@graphql-codegen/typescript": "^2.8.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@types/jest": "^29.2.2",
+    "@types/ramda": "^0.28.20",
+    "cross-fetch": "^3.1.5",
+    "eslint": "^7.32.0",
+    "graphql": "^15.8.0",
+    "graphql-codegen": "^0.4.0",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1",
+    "pkg-ok": "^3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ts-jest": "^29.0.3",
+    "typescript": "^4.5.2",
+    "use-query-rd": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@apollo/client": "^3.0.0",
+    "graphql": "^14.0.0 || ^15.0.0 || ^16.0.0"
   },
   "packageManager": "npm@8.5.5",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=14.0.0 || >=16.0.0 || >=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
