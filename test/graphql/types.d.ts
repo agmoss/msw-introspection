@@ -12,6 +12,8 @@ export type Scalars = {
   Float: number;
   Date: any;
   ObjectID: string;
+  timestamptz: any;
+  uuid: any;
 };
 
 export type Address = {
@@ -23,6 +25,7 @@ export type Address = {
 
 export type Capsule = {
   readonly __typename?: 'Capsule';
+  /** @deprecated This is not available in the REST API after MongoDB has been deprecated */
   readonly dragon?: Maybe<Dragon>;
   readonly id?: Maybe<Scalars['ID']>;
   readonly landings?: Maybe<Scalars['Int']>;
@@ -442,6 +445,33 @@ export type MissionsFind = {
   readonly payload_id?: InputMaybe<Scalars['String']>;
 };
 
+export type Mutation = {
+  readonly __typename?: 'Mutation';
+  /** delete data from the table: "users" */
+  readonly delete_users?: Maybe<Users_Mutation_Response>;
+  /** insert data into the table: "users" */
+  readonly insert_users?: Maybe<Users_Mutation_Response>;
+  /** update data of the table: "users" */
+  readonly update_users?: Maybe<Users_Mutation_Response>;
+};
+
+
+export type MutationDelete_UsersArgs = {
+  where: Users_Bool_Exp;
+};
+
+
+export type MutationInsert_UsersArgs = {
+  objects: ReadonlyArray<Users_Insert_Input>;
+  on_conflict?: InputMaybe<Users_On_Conflict>;
+};
+
+
+export type MutationUpdate_UsersArgs = {
+  _set?: InputMaybe<Users_Set_Input>;
+  where: Users_Bool_Exp;
+};
+
 export type Payload = {
   readonly __typename?: 'Payload';
   readonly customers?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
@@ -527,8 +557,11 @@ export type Query = {
   readonly launchesUpcoming?: Maybe<ReadonlyArray<Maybe<Launch>>>;
   readonly launchpad?: Maybe<Launchpad>;
   readonly launchpads?: Maybe<ReadonlyArray<Maybe<Launchpad>>>;
+  /** @deprecated Mission is not available on REST API after MongoDB deprecation */
   readonly mission?: Maybe<Mission>;
+  /** @deprecated Mission is not available on REST API after MongoDB deprecation */
   readonly missions?: Maybe<ReadonlyArray<Maybe<Mission>>>;
+  /** @deprecated Mission is not available on REST API after MongoDB deprecation */
   readonly missionsResult?: Maybe<MissionResult>;
   readonly payload?: Maybe<Payload>;
   readonly payloads?: Maybe<ReadonlyArray<Maybe<Payload>>>;
@@ -539,6 +572,12 @@ export type Query = {
   readonly ship?: Maybe<Ship>;
   readonly ships?: Maybe<ReadonlyArray<Maybe<Ship>>>;
   readonly shipsResult?: Maybe<ShipsResult>;
+  /** fetch data from the table: "users" */
+  readonly users: ReadonlyArray<Users>;
+  /** fetch aggregated fields from the table: "users" */
+  readonly users_aggregate: Users_Aggregate;
+  /** fetch data from the table: "users" using primary key columns */
+  readonly users_by_pk?: Maybe<Users>;
 };
 
 
@@ -785,6 +824,29 @@ export type QueryShipsResultArgs = {
   sort?: InputMaybe<Scalars['String']>;
 };
 
+
+export type QueryUsersArgs = {
+  distinct_on?: InputMaybe<ReadonlyArray<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<ReadonlyArray<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+
+export type QueryUsers_AggregateArgs = {
+  distinct_on?: InputMaybe<ReadonlyArray<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<ReadonlyArray<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+
+export type QueryUsers_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
 export type Result = {
   readonly __typename?: 'Result';
   readonly totalCount?: Maybe<Scalars['Int']>;
@@ -978,8 +1040,279 @@ export type ShipsResult = {
   readonly result?: Maybe<Result>;
 };
 
+/** expression to compare columns of type String. All fields are combined with logical 'AND'. */
+export type String_Comparison_Exp = {
+  readonly _eq?: InputMaybe<Scalars['String']>;
+  readonly _gt?: InputMaybe<Scalars['String']>;
+  readonly _gte?: InputMaybe<Scalars['String']>;
+  readonly _ilike?: InputMaybe<Scalars['String']>;
+  readonly _in?: InputMaybe<ReadonlyArray<Scalars['String']>>;
+  readonly _is_null?: InputMaybe<Scalars['Boolean']>;
+  readonly _like?: InputMaybe<Scalars['String']>;
+  readonly _lt?: InputMaybe<Scalars['String']>;
+  readonly _lte?: InputMaybe<Scalars['String']>;
+  readonly _neq?: InputMaybe<Scalars['String']>;
+  readonly _nilike?: InputMaybe<Scalars['String']>;
+  readonly _nin?: InputMaybe<ReadonlyArray<Scalars['String']>>;
+  readonly _nlike?: InputMaybe<Scalars['String']>;
+  readonly _nsimilar?: InputMaybe<Scalars['String']>;
+  readonly _similar?: InputMaybe<Scalars['String']>;
+};
+
+export type Subscription = {
+  readonly __typename?: 'Subscription';
+  /** fetch data from the table: "users" */
+  readonly users: ReadonlyArray<Users>;
+  /** fetch aggregated fields from the table: "users" */
+  readonly users_aggregate: Users_Aggregate;
+  /** fetch data from the table: "users" using primary key columns */
+  readonly users_by_pk?: Maybe<Users>;
+};
+
+
+export type SubscriptionUsersArgs = {
+  distinct_on?: InputMaybe<ReadonlyArray<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<ReadonlyArray<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+
+export type SubscriptionUsers_AggregateArgs = {
+  distinct_on?: InputMaybe<ReadonlyArray<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<ReadonlyArray<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+
+export type SubscriptionUsers_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
 export type Volume = {
   readonly __typename?: 'Volume';
   readonly cubic_feet?: Maybe<Scalars['Int']>;
   readonly cubic_meters?: Maybe<Scalars['Int']>;
+};
+
+/** conflict action */
+export enum Conflict_Action {
+  /** ignore the insert on this row */
+  Ignore = 'ignore',
+  /** update the row with the given values */
+  Update = 'update'
+}
+
+/** column ordering options */
+export enum Order_By {
+  /** in the ascending order, nulls last */
+  Asc = 'asc',
+  /** in the ascending order, nulls first */
+  AscNullsFirst = 'asc_nulls_first',
+  /** in the ascending order, nulls last */
+  AscNullsLast = 'asc_nulls_last',
+  /** in the descending order, nulls first */
+  Desc = 'desc',
+  /** in the descending order, nulls first */
+  DescNullsFirst = 'desc_nulls_first',
+  /** in the descending order, nulls last */
+  DescNullsLast = 'desc_nulls_last'
+}
+
+/** expression to compare columns of type timestamptz. All fields are combined with logical 'AND'. */
+export type Timestamptz_Comparison_Exp = {
+  readonly _eq?: InputMaybe<Scalars['timestamptz']>;
+  readonly _gt?: InputMaybe<Scalars['timestamptz']>;
+  readonly _gte?: InputMaybe<Scalars['timestamptz']>;
+  readonly _in?: InputMaybe<ReadonlyArray<Scalars['timestamptz']>>;
+  readonly _is_null?: InputMaybe<Scalars['Boolean']>;
+  readonly _lt?: InputMaybe<Scalars['timestamptz']>;
+  readonly _lte?: InputMaybe<Scalars['timestamptz']>;
+  readonly _neq?: InputMaybe<Scalars['timestamptz']>;
+  readonly _nin?: InputMaybe<ReadonlyArray<Scalars['timestamptz']>>;
+};
+
+/** columns and relationships of "users" */
+export type Users = {
+  readonly __typename?: 'users';
+  readonly id: Scalars['uuid'];
+  readonly name?: Maybe<Scalars['String']>;
+  readonly rocket?: Maybe<Scalars['String']>;
+  readonly timestamp: Scalars['timestamptz'];
+  readonly twitter?: Maybe<Scalars['String']>;
+};
+
+/** aggregated selection of "users" */
+export type Users_Aggregate = {
+  readonly __typename?: 'users_aggregate';
+  readonly aggregate?: Maybe<Users_Aggregate_Fields>;
+  readonly nodes: ReadonlyArray<Users>;
+};
+
+/** aggregate fields of "users" */
+export type Users_Aggregate_Fields = {
+  readonly __typename?: 'users_aggregate_fields';
+  readonly count?: Maybe<Scalars['Int']>;
+  readonly max?: Maybe<Users_Max_Fields>;
+  readonly min?: Maybe<Users_Min_Fields>;
+};
+
+
+/** aggregate fields of "users" */
+export type Users_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<ReadonlyArray<Users_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "users" */
+export type Users_Aggregate_Order_By = {
+  readonly count?: InputMaybe<Order_By>;
+  readonly max?: InputMaybe<Users_Max_Order_By>;
+  readonly min?: InputMaybe<Users_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "users" */
+export type Users_Arr_Rel_Insert_Input = {
+  readonly data: ReadonlyArray<Users_Insert_Input>;
+  readonly on_conflict?: InputMaybe<Users_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
+export type Users_Bool_Exp = {
+  readonly _and?: InputMaybe<ReadonlyArray<InputMaybe<Users_Bool_Exp>>>;
+  readonly _not?: InputMaybe<Users_Bool_Exp>;
+  readonly _or?: InputMaybe<ReadonlyArray<InputMaybe<Users_Bool_Exp>>>;
+  readonly id?: InputMaybe<Uuid_Comparison_Exp>;
+  readonly name?: InputMaybe<String_Comparison_Exp>;
+  readonly rocket?: InputMaybe<String_Comparison_Exp>;
+  readonly timestamp?: InputMaybe<Timestamptz_Comparison_Exp>;
+  readonly twitter?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "users" */
+export enum Users_Constraint {
+  Constraint = 'constraint',
+  Key = 'key',
+  Or = 'or',
+  Primary = 'primary',
+  Unique = 'unique',
+  UsersPkey = 'users_pkey'
+}
+
+/** input type for inserting data into table "users" */
+export type Users_Insert_Input = {
+  readonly id?: InputMaybe<Scalars['uuid']>;
+  readonly name?: InputMaybe<Scalars['String']>;
+  readonly rocket?: InputMaybe<Scalars['String']>;
+  readonly timestamp?: InputMaybe<Scalars['timestamptz']>;
+  readonly twitter?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Users_Max_Fields = {
+  readonly __typename?: 'users_max_fields';
+  readonly name?: Maybe<Scalars['String']>;
+  readonly rocket?: Maybe<Scalars['String']>;
+  readonly timestamp?: Maybe<Scalars['timestamptz']>;
+  readonly twitter?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "users" */
+export type Users_Max_Order_By = {
+  readonly name?: InputMaybe<Order_By>;
+  readonly rocket?: InputMaybe<Order_By>;
+  readonly timestamp?: InputMaybe<Order_By>;
+  readonly twitter?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Users_Min_Fields = {
+  readonly __typename?: 'users_min_fields';
+  readonly name?: Maybe<Scalars['String']>;
+  readonly rocket?: Maybe<Scalars['String']>;
+  readonly timestamp?: Maybe<Scalars['timestamptz']>;
+  readonly twitter?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "users" */
+export type Users_Min_Order_By = {
+  readonly name?: InputMaybe<Order_By>;
+  readonly rocket?: InputMaybe<Order_By>;
+  readonly timestamp?: InputMaybe<Order_By>;
+  readonly twitter?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "users" */
+export type Users_Mutation_Response = {
+  readonly __typename?: 'users_mutation_response';
+  /** number of affected rows by the mutation */
+  readonly affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  readonly returning: ReadonlyArray<Users>;
+};
+
+/** input type for inserting object relation for remote table "users" */
+export type Users_Obj_Rel_Insert_Input = {
+  readonly data: Users_Insert_Input;
+  readonly on_conflict?: InputMaybe<Users_On_Conflict>;
+};
+
+/** on conflict condition type for table "users" */
+export type Users_On_Conflict = {
+  readonly constraint: Users_Constraint;
+  readonly update_columns: ReadonlyArray<Users_Update_Column>;
+};
+
+/** ordering options when selecting data from "users" */
+export type Users_Order_By = {
+  readonly id?: InputMaybe<Order_By>;
+  readonly name?: InputMaybe<Order_By>;
+  readonly rocket?: InputMaybe<Order_By>;
+  readonly timestamp?: InputMaybe<Order_By>;
+  readonly twitter?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "users" */
+export enum Users_Select_Column {
+  Column = 'column',
+  Id = 'id',
+  Name = 'name',
+  Rocket = 'rocket',
+  Timestamp = 'timestamp',
+  Twitter = 'twitter'
+}
+
+/** input type for updating data in table "users" */
+export type Users_Set_Input = {
+  readonly id?: InputMaybe<Scalars['uuid']>;
+  readonly name?: InputMaybe<Scalars['String']>;
+  readonly rocket?: InputMaybe<Scalars['String']>;
+  readonly timestamp?: InputMaybe<Scalars['timestamptz']>;
+  readonly twitter?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "users" */
+export enum Users_Update_Column {
+  Column = 'column',
+  Id = 'id',
+  Name = 'name',
+  Rocket = 'rocket',
+  Timestamp = 'timestamp',
+  Twitter = 'twitter'
+}
+
+/** expression to compare columns of type uuid. All fields are combined with logical 'AND'. */
+export type Uuid_Comparison_Exp = {
+  readonly _eq?: InputMaybe<Scalars['uuid']>;
+  readonly _gt?: InputMaybe<Scalars['uuid']>;
+  readonly _gte?: InputMaybe<Scalars['uuid']>;
+  readonly _in?: InputMaybe<ReadonlyArray<Scalars['uuid']>>;
+  readonly _is_null?: InputMaybe<Scalars['Boolean']>;
+  readonly _lt?: InputMaybe<Scalars['uuid']>;
+  readonly _lte?: InputMaybe<Scalars['uuid']>;
+  readonly _neq?: InputMaybe<Scalars['uuid']>;
+  readonly _nin?: InputMaybe<ReadonlyArray<Scalars['uuid']>>;
 };

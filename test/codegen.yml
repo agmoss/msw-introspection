@@ -1,5 +1,5 @@
 overwrite: true
-schema: https://api.spacex.land/graphql
+schema: https://spacex-production.up.railway.app
 generates:
   test/graphql/types.d.ts:
     plugins:
