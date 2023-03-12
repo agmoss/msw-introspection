@@ -6,7 +6,7 @@
   "module": "./dist/lib/index.js",
   "types": "./dist/lib/index.d.ts",
   "files": [
-    "/dist/*"
+    "/dist/lib/*"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
