@@ -64,7 +64,7 @@ The `/test` directory sets up an ApolloClient instance, a React component that c
 │   │   ├── introspection.json # Output of graphql-codegen
 │   │   ├── schema.gql # Schema downloaded from SpaceX API
 │   │   ├── types.d.ts # Output of graphql-codegen
-│   ├── mocks # MSX code
+│   ├── mocks # MSW code
 │   ├── ApolloClient.ts # An instance of apollo client
 │   ├── codegen.yml # Generate ts types and introspection from graphql schema
 │   ├── index.test.tsx # Test suite
