@@ -9,14 +9,12 @@
     "/dist/*"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
     "check": "tsc --noEmit",
     "dev": "npm run build --watch",
     "gt": "graphql-codegen --config test/codegen.yml",
     "lint": "TIMING=1 eslint \"**/*.ts*\" \"**/*.tsx*\"",
     "pkg-ok": "pkg-ok",
-    "prerelease": "npm run prepublish",
     "prepublish": "npm run test && npm run build && npm run pkg-ok",
     "test": "jest"
   },
